@@ -7,4 +7,4 @@ build/
 tmp/
 temp/
 coverage/*
-*.js
+dist/*

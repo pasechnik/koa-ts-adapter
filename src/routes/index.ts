@@ -1,16 +1,9 @@
 import * as Router from 'koa-router';
 
-const router = new Router();
+import { healthCheckRoutes } from './healthcheck';
+import { rootRoutes } from './rootRoutes';
 
-router.get(`/`, async ctx => {
-  try {
-    ctx.body = {
-      status: 'success',
-      data: 'pong',
-    };
-  } catch (err) {
-    console.error(err);
-  }
-});
+export const router: Router = new Router();
 
-export default router;
+router.use('/ping', healthCheckRoutes.middleware());
+router.use('/', rootRoutes.middleware());

@@ -1,13 +1,13 @@
 import * as Router from 'koa-router';
 import { Context } from 'koa';
 
-export const healthCheckRoutes: Router = new Router();
+export const rootRoutes: Router = new Router();
 
-healthCheckRoutes.get(`/*`, async (ctx: Context) => {
+rootRoutes.get('/', async (ctx: Context) => {
   try {
     ctx.body = {
       status: 'success',
-      data: 'pong',
+      data: 'root',
     };
   } catch (err) {
     console.error(err);
