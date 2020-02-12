@@ -4,18 +4,18 @@ import { Context, Next } from 'koa';
 export const rootRoutes: Router = new Router();
 
 rootRoutes.get(
-  '/',
-  async (ctx: Context, next: Next): Promise<any> => {
-    try {
-      ctx.body = {
-        ...ctx.body,
-        status: 'success',
-        data: 'root',
-      };
+    '/',
+    async (ctx: Context, next: Next): Promise<void> => {
+        try {
+            ctx.body = {
+                ...ctx.body,
+                status: 'success',
+                data: 'root',
+            };
 
-      await next();
-    } catch (err) {
-      console.error(err);
-    }
-  },
+            await next();
+        } catch (err) {
+            console.error(err);
+        }
+    },
 );

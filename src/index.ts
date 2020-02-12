@@ -12,9 +12,9 @@ const PORT = config.port;
 
 app.use(bodyParser());
 app.use(
-  cors({
-    origin: '*',
-  }),
+    cors({
+        origin: '*',
+    }),
 );
 app.use(json());
 app.use(logger());
@@ -22,11 +22,11 @@ app.use(logger());
 app.use(router.routes()).use(router.allowedMethods());
 
 export const index = app
-  .listen(PORT, async () => {
-    console.log(`Server listening on port: ${PORT}`);
-  })
-  .on('error', err => {
-    console.error(err);
-  });
+    .listen(PORT, async () => {
+        console.log(`Server listening on port: ${PORT}`);
+    })
+    .on('error', err => {
+        console.error(err);
+    });
 
 export default index;

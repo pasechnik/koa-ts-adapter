@@ -1,7 +1,7 @@
 interface IConfig {
-  port: string;
+    port: string;
 }
 
 export const config: IConfig = {
-  port: process.env.PORT || '7654',
+    port: process.env.PORT || '7654',
 };
