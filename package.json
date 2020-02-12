@@ -11,6 +11,8 @@
     "start": "node index.js",
     "test": "NODE_ENV=test PORT=7788 jest",
     "test:watch": "npm run test -- --watchAll",
+    "lint": "tslint --config tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint --config tslint.json 'src/**/*.ts' --fix",
     "prettier:fix": "prettier --config .prettierrc  --write  \"**/*.ts\" \"**/*.html\"",
     "prettier:fix:ts": "prettier --config .prettierrc  --write  \"**/*.ts\"",
     "prettier:fix:html": "prettier --config .prettierrc  --write  \"**/*.html\" --parser angular",
@@ -43,7 +45,10 @@
     "pretty-quick": "^2.0.1",
     "supertest": "^4.0.2",
     "ts-jest": "^25.2.0",
-    "ts-node-dev": "^1.0.0-pre.44"
+    "ts-node-dev": "^1.0.0-pre.44",
+    "tslint": "^6.0.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript-tslint-plugin": "^0.5.5"
   },
   "jest": {
     "verbose": true,
