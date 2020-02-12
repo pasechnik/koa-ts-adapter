@@ -4,7 +4,7 @@ import { Context, Next } from 'koa';
 export const healthCheckRoutes: Router = new Router();
 
 healthCheckRoutes.get(
-  `/*`,
+  `/`,
   async (ctx: Context, next: Next): Promise<any> => {
     try {
       ctx.body = {

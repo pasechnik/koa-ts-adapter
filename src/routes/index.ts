@@ -5,5 +5,6 @@ import { rootRoutes } from './rootRoutes';
 
 export const router: Router = new Router();
 
+router.use('/ping/(.*)', healthCheckRoutes.middleware());
 router.use('/ping', healthCheckRoutes.middleware());
 router.use('/', rootRoutes.middleware());
