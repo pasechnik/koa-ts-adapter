@@ -1,15 +1,21 @@
 import * as Router from 'koa-router';
-import { Context } from 'koa';
+import { Context, Next } from 'koa';
 
 export const healthCheckRoutes: Router = new Router();
 
-healthCheckRoutes.get(`/*`, async (ctx: Context) => {
-  try {
-    ctx.body = {
-      status: 'success',
-      data: 'pong',
-    };
-  } catch (err) {
-    console.error(err);
-  }
-});
+healthCheckRoutes.get(
+  `/*`,
+  async (ctx: Context, next: Next): Promise<any> => {
+    try {
+      ctx.body = {
+        ...ctx.body,
+        status: 'success',
+        data: 'pong',
+      };
+
+      await next();
+    } catch (err) {
+      console.error(err);
+    }
+  },
+);
