@@ -1,10 +1,12 @@
 import * as Router from 'koa-router';
 
-import { healthCheckRoutes } from './healthcheck';
-import { rootRoutes } from './rootRoutes';
+import { healthCheck } from './healthcheck';
+import { root } from './root';
+import { post } from './post';
 
 export const router: Router = new Router();
 
-router.use('/ping/(.*)', healthCheckRoutes.middleware());
-router.use('/ping', healthCheckRoutes.middleware());
-router.use('/', rootRoutes.middleware());
+router.use('/ping/(.*)', healthCheck.middleware());
+router.use('/ping', healthCheck.middleware());
+router.use('/post', post.middleware());
+router.use('/', root.middleware());

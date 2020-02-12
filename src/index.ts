@@ -1,32 +1,28 @@
-import * as Koa from 'koa';
-import * as bodyParser from 'koa-bodyparser';
-import * as cors from 'koa2-cors';
-import * as logger from 'koa-logger';
-import * as json from 'koa-json';
 import { config } from './config';
-import { router } from './routes';
+import { server } from './server';
+import * as logger from 'koa-logger';
+import * as debug from 'debug';
 
-const app = new Koa();
+const error = debug('app:error');
+const log = debug('app:index');
 
 const PORT = config.port;
 
-app.use(bodyParser());
-app.use(
-    cors({
-        origin: '*',
+// server.use(logger());
+server.use(
+    logger({
+        transporter: str => {
+            log(str);
+        },
     }),
 );
-app.use(json());
-app.use(logger());
 
-app.use(router.routes()).use(router.allowedMethods());
-
-export const index = app
+export const app = server
     .listen(PORT, async () => {
-        console.log(`Server listening on port: ${PORT}`);
+        log(`Server listening on port: ${PORT}`);
     })
     .on('error', err => {
-        console.error(err);
+        error(err);
     });
 
-export default index;
+export default app;
