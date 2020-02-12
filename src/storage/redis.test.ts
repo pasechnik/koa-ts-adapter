@@ -11,15 +11,15 @@ describe('storage/redis', () => {
     });
 
     describe('add', () => {
-        const list_name = 'my_test_list_2';
+        const myTestList2 = 'my_test_list_2';
 
         it('should allow adding an entry to the list', async () => {
             const storage: Storage = createRedisStorage();
-            expect(await storage.add(list_name, 'chris')).toEqual(true);
+            expect(await storage.add(myTestList2, 'chris')).toEqual(true);
 
-            expect(await storage.get(list_name)).toEqual(['chris']);
+            expect(await storage.get(myTestList2)).toEqual(['chris']);
 
-            await storage.remove(list_name, 'chris');
+            await storage.remove(myTestList2, 'chris');
             await storage.quit();
         });
     });
@@ -27,16 +27,16 @@ describe('storage/redis', () => {
     describe('remove', () => {
         it('should allow removing an entry from the list', async () => {
             const storage: Storage = createRedisStorage();
-            const list_name = 'my_test_list_3';
+            const myTestList3 = 'my_test_list_3';
 
-            await storage.add(list_name, 'chris');
-            await storage.add(list_name, 'paul');
+            await storage.add(myTestList3, 'chris');
+            await storage.add(myTestList3, 'paul');
 
-            expect(await storage.remove(list_name, 'paul')).toEqual(true);
+            expect(await storage.remove(myTestList3, 'paul')).toEqual(true);
 
-            expect(await storage.get(list_name)).toEqual(['chris']);
+            expect(await storage.get(myTestList3)).toEqual(['chris']);
 
-            await storage.remove(list_name, 'chris');
+            await storage.remove(myTestList3, 'chris');
             await storage.quit();
         });
     });

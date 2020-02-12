@@ -4,7 +4,7 @@ import { AddMessage } from '../request/AddMessage';
 import { validate } from 'class-validator';
 import * as debug from 'debug';
 
-const error = debug('app:post:error');
+// const error = debug('app:post:error');
 const log = debug('app:post');
 
 export const post: Router = new Router();

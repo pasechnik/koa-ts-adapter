@@ -28,14 +28,14 @@ describe('routes/postRoutes', () => {
 
     games.forEach((name: string) => {
         it(`should allow adding a message to the list - ${name}`, async () => {
-            const mockGet = jest.fn((list: string) => Promise.resolve([name]));
+            const mockGet = jest.fn(() => Promise.resolve([name]));
             // @ts-ignore
             storageRedis['createRedisStorage'] = jest.fn(() => {
                 return {
                     get: mockGet,
-                    add: (list: string) => Promise.resolve(false),
-                    remove: (list: string) => Promise.resolve(false),
-                    quit: (list: string) => Promise.resolve('OK'),
+                    add: (): Promise<boolean> => Promise.resolve(false),
+                    remove: (): Promise<boolean> => Promise.resolve(false),
+                    quit: (): Promise<'OK'> => Promise.resolve('OK'),
                 };
             });
 

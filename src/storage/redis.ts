@@ -21,7 +21,7 @@ export const createRedisStorage = (): Storage => {
     const quit: QuitFunction = promisify(client.quit).bind(client);
 
     return {
-        get: async (list: string) => {
+        get: async (list: string): Promise<string[]> => {
             try {
                 const value: string[] = await lRange(list, 0, -1);
                 log(`got items: `, value);
@@ -31,7 +31,7 @@ export const createRedisStorage = (): Storage => {
                 return [];
             }
         },
-        add: async (list: string, name: string) => {
+        add: async (list: string, name: string): Promise<boolean> => {
             try {
                 const value: number = await rPush(list, name);
                 log(`items added: ${value}`);
@@ -41,7 +41,7 @@ export const createRedisStorage = (): Storage => {
                 return false;
             }
         },
-        remove: async (list: string, name: string) => {
+        remove: async (list: string, name: string): Promise<boolean> => {
             try {
                 const value: number = await lRem(list, 0, name);
                 log(`items removed: ${value}`);
@@ -51,7 +51,7 @@ export const createRedisStorage = (): Storage => {
                 return false;
             }
         },
-        quit: async () => {
+        quit: async (): Promise<boolean> => {
             try {
                 const value: string = await quit();
                 log(`exited: ${value}`);
