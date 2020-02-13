@@ -18,7 +18,7 @@
         "prettier:fix:ts": "prettier --config .prettierrc  --write  \"**/*.ts\"",
         "prettier:fix:html": "prettier --config .prettierrc  --write  \"**/*.html\" --parser angular",
         "format:fix": "pretty-quick --staged",
-        "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node ./src/server.ts"
+        "watch-server": "nodemon --watch 'src/**/*' -e ts,tsx --exec ts-node src/app.ts"
     },
     "betterScripts": {
         "start": {

@@ -1,5 +1,5 @@
 // noinspection DuplicatedCode
-import { server } from '../server';
+import { app } from '../app';
 import { Server } from 'http';
 import { verifyJsonResponse } from '../tests/response';
 import DoneCallback = jest.DoneCallback;
@@ -7,7 +7,7 @@ import DoneCallback = jest.DoneCallback;
 let app: Server;
 
 beforeAll((doneCallback: DoneCallback) => {
-    app = server.listen();
+    app = app.listen();
     doneCallback();
 });
 
@@ -16,7 +16,7 @@ afterAll((doneCallback: DoneCallback) => {
     doneCallback();
 });
 
-// close the server after each test
+// close the app after each test
 afterEach((doneCallback: DoneCallback) => {
     doneCallback();
 });

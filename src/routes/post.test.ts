@@ -1,24 +1,24 @@
 // noinspection DuplicatedCode
-import { server } from '../server';
+import { app } from '../app';
 import { Server } from 'http';
 import * as request from 'supertest';
 import * as storageRedis from '../storage/redis';
 import DoneCallback = jest.DoneCallback;
 
-let app: Server;
+let httpServer: Server;
 jest.mock('../storage/redis');
 
 beforeAll((doneCallback: DoneCallback) => {
-    app = server.listen();
+    httpServer = app.listen();
     doneCallback();
 });
 
 afterAll((doneCallback: DoneCallback) => {
-    app.close();
+    httpServer.close();
     doneCallback();
 });
 
-// close the server after each test
+// close the app after each test
 afterEach((doneCallback: DoneCallback) => {
     doneCallback();
 });
@@ -39,7 +39,7 @@ describe('routes/postRoutes', () => {
                 };
             });
 
-            const response = await request(app)
+            const response = await request(httpServer)
                 .post('/post')
                 .send({ name });
 
@@ -54,7 +54,7 @@ describe('routes/postRoutes', () => {
     });
 
     it('should return a validation failure if the game data is incorrect', async () => {
-        const response = await request(app)
+        const response = await request(httpServer)
             .post('/post')
             .send({ game: '' });
 

@@ -1,15 +1,15 @@
-import { config } from './config';
-import { server } from './server';
-import * as logger from 'koa-logger';
 import * as debug from 'debug';
+import * as logger from 'koa-logger';
+import { Server } from 'http';
+import { config } from './config';
+import { app } from './app';
 
 const error = debug('app:error');
 const log = debug('app:index');
 
 const PORT = config.port;
 
-// server.use(logger());
-server.use(
+app.use(
     logger({
         transporter: str => {
             log(str);
@@ -17,7 +17,7 @@ server.use(
     }),
 );
 
-export const app = server
+export const httpServer: Server = app
     .listen(PORT, async () => {
         log(`Server listening on port: ${PORT}`);
     })
@@ -25,4 +25,4 @@ export const app = server
         error(err);
     });
 
-export default app;
+export default httpServer;
