@@ -1,0 +1,170 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "TaskType": {}
+    },
+    "properties": {
+        "id": {
+            "type": ["string", "number"]
+        },
+        "name": {
+            "type": "string"
+        },
+        "units": {
+            "items": {
+                "properties": {
+                    "data": {},
+                    "id": {
+                        "type": ["string", "number"]
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "tasks": {
+                        "items": {
+                            "properties": {
+                                "data": {
+                                    "properties": {
+                                        "end": {
+                                            "properties": {
+                                                "lat": {
+                                                    "type": "number"
+                                                },
+                                                "lon": {
+                                                    "type": "number"
+                                                }
+                                            },
+                                            "type": "object"
+                                        },
+                                        "interval": {
+                                            "type": "number"
+                                        },
+                                        "length": {
+                                            "type": "number"
+                                        },
+                                        "speed": {
+                                            "type": "number"
+                                        },
+                                        "start": {
+                                            "properties": {
+                                                "lat": {
+                                                    "type": "number"
+                                                },
+                                                "lon": {
+                                                    "type": "number"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "id": {
+                                    "type": ["string", "number"]
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "steps": {
+                                    "items": {
+                                        "properties": {
+                                            "data": {
+                                                "anyOf": [
+                                                    {
+                                                        "properties": {
+                                                            "signal": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    {
+                                                        "properties": {
+                                                            "lat": {
+                                                                "type": "string"
+                                                            },
+                                                            "long": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    {
+                                                        "properties": {
+                                                            "address": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    {
+                                                        "properties": {
+                                                            "fuel": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    {
+                                                        "properties": {
+                                                            "default": {
+                                                                "type": "string"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    },
+                                                    {
+                                                        "properties": {
+                                                            "distance": {
+                                                                "type": "number"
+                                                            },
+                                                            "latitude": {
+                                                                "type": "number"
+                                                            },
+                                                            "longitude": {
+                                                                "type": "number"
+                                                            }
+                                                        },
+                                                        "type": "object"
+                                                    }
+                                                ]
+                                            },
+                                            "id": {
+                                                "type": ["string", "number"]
+                                            },
+                                            "time": {
+                                                "type": "number"
+                                            }
+                                        },
+                                        "type": "object"
+                                    },
+                                    "type": "array"
+                                },
+                                "stepsCount": {
+                                    "type": "number"
+                                },
+                                "timeoutBefore": {
+                                    "type": "number"
+                                },
+                                "totalTime": {
+                                    "type": "number"
+                                },
+                                "type": {
+                                    "$ref": "#/definitions/TaskType"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "type": "array"
+                    }
+                },
+                "type": "object"
+            },
+            "type": "array"
+        }
+    },
+    "type": "object"
+}

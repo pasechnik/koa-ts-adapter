@@ -1,18 +1,17 @@
-// noinspection DuplicatedCode
 import { app } from '../app';
 import { Server } from 'http';
 import { verifyJsonResponse } from '../tests/response';
 import DoneCallback = jest.DoneCallback;
 
-let app: Server;
+let server: Server;
 
 beforeAll((doneCallback: DoneCallback) => {
-    app = app.listen();
+    server = app.listen();
     doneCallback();
 });
 
 afterAll((doneCallback: DoneCallback) => {
-    app.close();
+    server.close();
     doneCallback();
 });
 
@@ -23,6 +22,6 @@ afterEach((doneCallback: DoneCallback) => {
 
 describe('routes/rootRoutes', () => {
     it('should respond root', async () => {
-        await verifyJsonResponse(app, '/', 'root');
+        await verifyJsonResponse(server, '/', 'root');
     });
 });

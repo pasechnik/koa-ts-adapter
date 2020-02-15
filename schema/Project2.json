@@ -1,0 +1,250 @@
+{
+    "$ref": "#/definitions/Project",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "definitions": {
+        "AddressData": {
+            "additionalProperties": false,
+            "properties": {
+                "address": {
+                    "type": "string"
+                }
+            },
+            "required": ["address"],
+            "type": "object"
+        },
+        "DefaultData": {
+            "additionalProperties": false,
+            "properties": {
+                "default": {
+                    "type": "string"
+                }
+            },
+            "required": ["default"],
+            "type": "object"
+        },
+        "FuelData": {
+            "additionalProperties": false,
+            "properties": {
+                "fuel": {
+                    "type": "string"
+                }
+            },
+            "required": ["fuel"],
+            "type": "object"
+        },
+        "Location": {
+            "additionalProperties": false,
+            "properties": {
+                "lat": {
+                    "type": "number"
+                },
+                "lon": {
+                    "type": "number"
+                }
+            },
+            "required": ["lon", "lat"],
+            "type": "object"
+        },
+        "LocationData": {
+            "additionalProperties": false,
+            "properties": {
+                "lat": {
+                    "type": "string"
+                },
+                "long": {
+                    "type": "string"
+                }
+            },
+            "required": ["lat", "long"],
+            "type": "object"
+        },
+        "Project": {
+            "additionalProperties": false,
+            "properties": {
+                "id": {
+                    "$ref": "#/definitions/ProjectId"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "units": {
+                    "items": {
+                        "$ref": "#/definitions/Unit"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["id", "name", "units"],
+            "type": "object"
+        },
+        "ProjectId": {
+            "type": ["number", "string"]
+        },
+        "RouteData": {
+            "additionalProperties": false,
+            "properties": {
+                "distance": {
+                    "type": "number"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "longitude": {
+                    "type": "number"
+                }
+            },
+            "required": ["latitude", "longitude", "distance"],
+            "type": "object"
+        },
+        "RouteSimulationTaskData": {
+            "additionalProperties": false,
+            "properties": {
+                "end": {
+                    "$ref": "#/definitions/Location"
+                },
+                "interval": {
+                    "type": "number"
+                },
+                "length": {
+                    "type": "number"
+                },
+                "speed": {
+                    "type": "number"
+                },
+                "start": {
+                    "$ref": "#/definitions/Location"
+                }
+            },
+            "required": ["start", "end", "speed", "interval", "length"],
+            "type": "object"
+        },
+        "SignalData": {
+            "additionalProperties": false,
+            "properties": {
+                "signal": {
+                    "type": "string"
+                }
+            },
+            "required": ["signal"],
+            "type": "object"
+        },
+        "Step": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/StepData"
+                },
+                "id": {
+                    "$ref": "#/definitions/StepId"
+                },
+                "time": {
+                    "type": "number"
+                }
+            },
+            "required": ["id", "time", "data"],
+            "type": "object"
+        },
+        "StepData": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/RouteData"
+                },
+                {
+                    "$ref": "#/definitions/SignalData"
+                },
+                {
+                    "$ref": "#/definitions/LocationData"
+                },
+                {
+                    "$ref": "#/definitions/AddressData"
+                },
+                {
+                    "$ref": "#/definitions/FuelData"
+                },
+                {
+                    "$ref": "#/definitions/DefaultData"
+                }
+            ]
+        },
+        "StepId": {
+            "type": ["number", "string"]
+        },
+        "Task": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {
+                    "$ref": "#/definitions/RouteSimulationTaskData"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "id": {
+                    "$ref": "#/definitions/TaskId"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "steps": {
+                    "items": {
+                        "$ref": "#/definitions/Step"
+                    },
+                    "type": "array"
+                },
+                "stepsCount": {
+                    "type": "number"
+                },
+                "timeoutBefore": {
+                    "type": "number"
+                },
+                "totalTime": {
+                    "type": "number"
+                },
+                "type": {
+                    "$ref": "#/definitions/TaskType"
+                }
+            },
+            "required": [
+                "id",
+                "name",
+                "description",
+                "type",
+                "timeoutBefore",
+                "data",
+                "steps",
+                "stepsCount",
+                "totalTime"
+            ],
+            "type": "object"
+        },
+        "TaskId": {
+            "type": ["number", "string"]
+        },
+        "TaskType": {
+            "enum": [0, 1, 2, 3, 4, 5, 6, 7],
+            "type": "number"
+        },
+        "Unit": {
+            "additionalProperties": false,
+            "properties": {
+                "data": {},
+                "id": {
+                    "$ref": "#/definitions/UnitId"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "tasks": {
+                    "items": {
+                        "$ref": "#/definitions/Task"
+                    },
+                    "type": "array"
+                }
+            },
+            "required": ["id", "name", "data", "tasks"],
+            "type": "object"
+        },
+        "UnitId": {
+            "type": ["number", "string"]
+        }
+    }
+}
