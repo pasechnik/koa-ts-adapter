@@ -1,0 +1,46 @@
+{
+    "id": "18f8e770-0b86-11ea-aa50-db39822fe846",
+    "name": "Battlefield 22",
+    "units": [
+        {
+            "name": "Mercedes",
+            "id": "22eb2360-0b86-11ea-aa50-db39822fe846",
+            "data": {},
+            "tasks": [
+                {
+                    "stepsCount": 371,
+                    "totalTime": 371,
+                    "id": "8401dfe0-0b86-11ea-aa50-db39822fe846",
+                    "name": "BMW A-B  30kph 1sec",
+                    "description": "",
+                    "timeoutBefore": 0,
+                    "type": 7,
+                    "data": {
+                        "start": {
+                            "lon": 11.53291,
+                            "lat": 48.18706
+                        },
+                        "end": {
+                            "lon": 11.57203,
+                            "lat": 48.18699
+                        },
+                        "speed": 30,
+                        "interval": 1,
+                        "length": 3.074
+                    },
+                    "steps": [
+                        {
+                            "data": {
+                                "latitude": 48.18703343459952,
+                                "longitude": 11.533244729599385,
+                                "distance": 24.99
+                            },
+                            "id": 3,
+                            "time": 3
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
