@@ -5,7 +5,7 @@ import { Validator, ValidatorResult } from 'jsonschema';
 import { Project } from '../common/typings';
 // @ts-ignore
 import * as schema from '../../schema/Project.json';
-import { createRedisStorage } from '../storage/redis';
+import { createStorage } from '../storage/redis';
 
 // const error = debug('app:post:error');
 const log = debug('app:project');
@@ -31,7 +31,7 @@ project.post(
 
         const project: Project = ctx.request.body;
         const list = 'project_list';
-        const storage = createRedisStorage();
+        const storage = createStorage();
         await storage.add(list, project);
         const games = await storage.get(list);
         await storage.quit();

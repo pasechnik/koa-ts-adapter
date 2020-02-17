@@ -3,7 +3,7 @@ import { Context, Next } from 'koa';
 import { AddMessage } from '../request/AddMessage';
 import { validate } from 'class-validator';
 import * as debug from 'debug';
-import { createRedisStorage } from '../storage/redis';
+import { createStorage } from '../storage/redis';
 
 // const error = debug('app:post:error');
 const log = debug('app:post');
@@ -32,7 +32,7 @@ post.post(
         }
 
         const list = 'post_list';
-        const storage = createRedisStorage();
+        const storage = createStorage();
         await storage.add(list, message.name);
         const games = await storage.get(list);
         await storage.quit();
