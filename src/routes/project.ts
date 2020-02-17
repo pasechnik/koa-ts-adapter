@@ -5,6 +5,7 @@ import { Validator, ValidatorResult } from 'jsonschema';
 import { Project } from '../common/typings';
 // @ts-ignore
 import * as schema from '../../schema/Project.json';
+import { createRedisStorage } from '../storage/redis';
 
 // const error = debug('app:post:error');
 const log = debug('app:project');
@@ -29,7 +30,11 @@ project.post(
         }
 
         const project: Project = ctx.request.body;
-
+        const list = 'project_list';
+        const storage = createRedisStorage();
+        await storage.add(list, project);
+        const games = await storage.get(list);
+        await storage.quit();
         ctx.io.to('animals').emit('animal', `Project "${project.name}" ist da! `);
 
         // ALL ABOVE THIS IS NEW

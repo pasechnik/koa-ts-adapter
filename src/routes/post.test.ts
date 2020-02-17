@@ -49,7 +49,7 @@ describe('routes/postRoutes', () => {
                 games: [name],
             });
 
-            expect(mockGet).not.toHaveBeenCalled();
+            expect(mockGet).toHaveBeenCalled();
         });
     });
 

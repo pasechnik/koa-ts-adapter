@@ -3,6 +3,7 @@ import { Context, Next } from 'koa';
 import { AddMessage } from '../request/AddMessage';
 import { validate } from 'class-validator';
 import * as debug from 'debug';
+import { createRedisStorage } from '../storage/redis';
 
 // const error = debug('app:post:error');
 const log = debug('app:post');
@@ -11,13 +12,7 @@ export const post: Router = new Router();
 
 post.post(
     `/`,
-    async (ctx: Context, next: Next): Promise<Context> => {
-        // validate the incoming request
-        //   - return early if invalid
-        // save the new game to storage
-        // get all the games we know about
-
-        // ALL BELOW THIS IS NEW
+    async (ctx: Context, next: Next): Promise<void> => {
         const validatorOptions = {};
 
         const message = new AddMessage();
@@ -33,18 +28,24 @@ post.post(
                 data: errors,
             };
 
-            return ctx;
+            return;
         }
+
+        const list = 'post_list';
+        const storage = createRedisStorage();
+        await storage.add(list, message.name);
+        const games = await storage.get(list);
+        await storage.quit();
 
         // ALL ABOVE THIS IS NEW
         ctx.status = 201;
         ctx.body = {
             ...ctx.body,
-            games: [message.name],
+            games,
         };
 
         await next();
 
-        return ctx;
+        return;
     },
 );

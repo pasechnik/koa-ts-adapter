@@ -12,7 +12,8 @@ type RemoveFunction = (key: string, count: number, value: string) => Promise<num
 type RangeFunction = (key: string, start: number, stop: number) => Promise<string[]>;
 type QuitFunction = () => Promise<'OK'>;
 
-export const createRedisStorage = (): Storage => {
+// export const createRedisStorage = (): Storage => {
+export function createRedisStorage(): Storage {
     const client = redis.createClient(config.redis);
 
     const rPush: PushFunction = promisify<number>(client.rpush).bind(client);
