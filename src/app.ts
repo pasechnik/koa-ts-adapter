@@ -1,15 +1,21 @@
+import * as IO from 'socket.io';
 import * as Koa from 'koa';
 import * as bodyParser from 'koa-bodyparser';
 import * as cors from 'koa2-cors';
+import * as debug from 'debug';
+import * as http from 'http';
 import * as json from 'koa-json';
+import * as logger from 'koa-logger';
 import { router } from './routes';
 
 // Debug logging stuff
-// import * as debug from 'debug';
 // const error = debug('app:app:error');
-// const log = debug('app:app');
+const log = debug('app:app');
 
 export const app: Koa = new Koa();
+
+export const server: http.Server = http.createServer(app.callback());
+export const io = IO(server);
 
 app.use(bodyParser());
 app.use(
@@ -18,6 +24,42 @@ app.use(
     }),
 );
 app.use(json());
+app.use(
+    logger({
+        transporter: str => {
+            log(str);
+        },
+    }),
+);
+
+app.use(async (ctx, next) => {
+    ctx.io = io;
+    await next();
+});
 
 app.use(router.middleware());
-// app.use(router.routes()).use(router.allowedMethods());
+
+io.on('connection', (socket: IO.Socket) => {
+    log(`connection client is `);
+    io.emit('animal', 'COALA!');
+    // socket.
+    socket.on('event', data => {
+        io.to('animals').emit('animal', `COOL: ${data}!`);
+        log(`data sent is ${data}`);
+    });
+    socket.on('subscribe', () => {
+        socket.join('animals');
+        io.to('animals').emit('animal', 'COOL!');
+        log(`subscribed`);
+    });
+    socket.on('unsubscribe', () => {
+        socket.leave('animals');
+        socket.emit('animal', 'COOL!');
+        log(`unsubscribed`);
+    });
+
+    socket.on('disconnect', () => {
+        socket.leaveAll();
+        log('disconnect');
+    });
+});

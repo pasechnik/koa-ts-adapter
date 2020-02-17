@@ -14,20 +14,9 @@ export const project: Router = new Router();
 
 project.post(
     `/`,
-    async (ctx: Context, next: Next): Promise<Context> => {
-        // validate the incoming request
-        //   - return early if invalid
-        // save the new game to storage
-        // get all the games we know about
-
-        // ALL BELOW THIS IS NEW
-        log('Request: ', ctx.request.body);
-        // message.name = ctx.request.body.name || '';
-
+    async (ctx: Context, next: Next): Promise<void> => {
         const validatorResult: ValidatorResult = validator.validate(ctx.request.body, schema);
-        log(`message is ${validatorResult.valid ? '' : 'NOT '}valid`);
-
-        // const errors = await validate(message, validatorOptions);
+        log(`Project message is ${validatorResult.valid ? '' : 'NOT '}valid`);
 
         if (!validatorResult.valid) {
             ctx.status = 400;
@@ -36,10 +25,12 @@ project.post(
                 data: validatorResult.errors,
             };
 
-            return ctx;
+            return;
         }
 
         const project: Project = ctx.request.body;
+
+        ctx.io.to('animals').emit('animal', `Project "${project.name}" ist da! `);
 
         // ALL ABOVE THIS IS NEW
         ctx.status = 201;
@@ -49,7 +40,5 @@ project.post(
         };
 
         await next();
-
-        return ctx;
     },
 );
