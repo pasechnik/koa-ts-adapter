@@ -12,11 +12,12 @@ import { router } from './routes';
 // const error = debug('app:app:error');
 const log = debug('app:app');
 
-export const app: Koa = new Koa();
+export const app: Koa<{}, { io: IO.Server }> = new Koa();
 
 export const server: http.Server = http.createServer(app.callback());
-export const io = IO(server);
+export const io: IO.Server = IO(server);
 
+app.context.io = io;
 app.use(bodyParser());
 app.use(
     cors({
@@ -32,16 +33,17 @@ app.use(
     }),
 );
 
-app.use(async (ctx, next) => {
-    ctx.io = io;
-    await next();
-});
+// app.use(async (ctx, next) => {
+//     ctx.io = io;
+//     await next();
+// });
 
 app.use(router.middleware());
 
 io.on('connection', (socket: IO.Socket) => {
+    socket.join('animals');
     log(`connection client is `);
-    io.emit('animal', 'COALA!');
+    io.emit('events', 'Welcome!');
     // socket.
     socket.on('event', data => {
         io.to('animals').emit('animal', `COOL: ${data}!`);
