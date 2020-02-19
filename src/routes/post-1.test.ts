@@ -23,8 +23,8 @@ afterEach((doneCallback: DoneCallback) => {
     doneCallback();
 });
 
-describe('routes/postRoutes', () => {
-    const games = ['World of Warships', 'Battlefield'];
+describe('routes/postRoutes-mocks', () => {
+    const games = ['World of Warships', 'Battlefield 4'];
 
     games.forEach((name: string) => {
         it(`should allow adding a message to the list - ${name}`, async () => {
