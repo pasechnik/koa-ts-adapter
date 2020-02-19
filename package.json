@@ -12,6 +12,7 @@
         "start": "better-npm-run start",
         "test": "better-npm-run test",
         "test:watch": "better-npm-run test:watch",
+        "tslint": "tslint --project ./ --fix",
         "lint": "eslint -f stylish --config .eslintrc.js 'src/**/*.ts'",
         "lint:fix": "eslint -f stylish --config .eslintrc.js 'src/**/*.ts' --fix",
         "prettier:fix": "prettier --config .prettierrc  --write  \"**/*.ts\" \"**/*.html\"  \"**/*.json\"",
@@ -98,7 +99,9 @@
         "pretty-quick": "^2.0.1",
         "supertest": "^4.0.2",
         "ts-jest": "^25.2.0",
-        "ts-node-dev": "^1.0.0-pre.44"
+        "ts-node-dev": "^1.0.0-pre.44",
+        "tslint": "^6.0.0",
+        "tslint-config-prettier": "^1.18.0"
     },
     "jest": {
         "verbose": true,

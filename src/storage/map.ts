@@ -1,53 +1,42 @@
-import * as debug from 'debug';
+// import * as debug from 'debug';
 import { Storage } from '../types/interfaces';
 
-const error = debug('app:mapStorage:error');
-const log = debug('app:mapStorage');
+// const error = debug('app:mapStorage:error');
+// const log = debug('app:mapStorage');
+//
+// const map = new Map();
 
-const map = new Map();
-const map = new Map();
-
-export function createStorage<T>(): Storage {
+export function createStorage<T>(): Storage<T> {
     return {
-        get: async (list: string): Promise<T[]> => {
-            try {
-                const value: T[] = await lRange(list, 0, -1);
-                log(`got items: `, value);
-                return value;
-            } catch (e) {
-                error('Error ', e);
-                return [];
-            }
+        add(): Promise<number> {
+            return Promise.resolve(0);
         },
-        add: async (list: string, name: string): Promise<boolean> => {
-            try {
-                const value: number = await rPush(list, name);
-                log(`items added: ${value}`);
-                return value > 0;
-            } catch (e) {
-                error('Error ', e);
-                return false;
-            }
+        clear(): Promise<number> {
+            return Promise.resolve(0);
         },
-        remove: async (list: string, name: string): Promise<boolean> => {
-            try {
-                const value: number = await lRem(list, 0, name);
-                log(`items removed: ${value}`);
-                return value > 0;
-            } catch (e) {
-                error('Error ', e);
-                return false;
-            }
+        del(): Promise<number> {
+            return Promise.resolve(0);
         },
-        quit: async (): Promise<boolean> => {
-            try {
-                const value: string = await quit();
-                log(`exited: ${value}`);
-                return true;
-            } catch (e) {
-                error('Error ', e);
-                return false;
-            }
+        get(): Promise<string | null> {
+            return Promise.resolve('');
+        },
+        key(): Promise<string | null> {
+            return Promise.resolve('');
+        },
+        length(): Promise<number> {
+            return Promise.resolve(0);
+        },
+        list(): Promise<string[]> {
+            return Promise.resolve(['']);
+        },
+        quit(): Promise<'OK'> {
+            return Promise.resolve('OK');
+        },
+        remove(): Promise<number> {
+            return Promise.resolve(0);
+        },
+        set(): Promise<number> {
+            return Promise.resolve(0);
         },
     };
 }

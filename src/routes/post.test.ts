@@ -30,7 +30,7 @@ describe('routes/postRoutes', () => {
         it(`should allow adding a message to the list - ${name}`, async () => {
             const mockGet = jest.fn(() => Promise.resolve([name]));
             // @ts-ignore
-            storageRedis['createStorage'] = jest.fn(() => {
+            storageRedis.createStorage = jest.fn(() => {
                 return {
                     get: mockGet,
                     add: (): Promise<boolean> => Promise.resolve(false),

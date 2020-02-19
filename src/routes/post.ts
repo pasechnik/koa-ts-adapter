@@ -31,10 +31,9 @@ post.post(
             return;
         }
 
-        const list = 'post_list';
-        const storage = createStorage();
-        await storage.add(list, message.name);
-        const games = await storage.get(list);
+        const storage = createStorage('post_list');
+        await storage.add(message.name);
+        const games = await storage.get();
         await storage.quit();
 
         // ALL ABOVE THIS IS NEW

@@ -2,41 +2,38 @@ import { createStorage } from './redis';
 import { Storage } from '../types/interfaces';
 
 describe('storage/redis', () => {
-    describe('get', () => {
+    describe('list', () => {
         it('should initially return an empty list', async () => {
-            const storage = createStorage('my_test_list_1');
-            expect(await storage.get()).toEqual([]);
+            const storage: Storage<string> = createStorage<string>('my_test_list_1');
+            expect(await storage.list()).toEqual([]);
             await storage.quit();
         });
     });
 
     describe('add', () => {
-        const myTestList2 = 'my_test_list_2';
-
         it('should allow adding an entry to the list', async () => {
-            const storage: Storage = createStorage();
-            expect(await storage.add(myTestList2, 'chris')).toEqual(true);
+            const storage: Storage<string> = createStorage<string>('my_test_list_2');
+            expect(await storage.add('chris')).toEqual(true);
 
-            expect(await storage.get(myTestList2)).toEqual(['chris']);
+            expect(await storage.list()).toEqual(['chris']);
 
-            await storage.remove(myTestList2, 'chris');
+            await storage.remove('chris');
             await storage.quit();
         });
     });
 
     describe('remove', () => {
         it('should allow removing an entry from the list', async () => {
-            const storage: Storage = createStorage();
-            const myTestList3 = 'my_test_list_3';
+            const storage: Storage<string> = createStorage<string>('my_test_list_3');
 
-            await storage.add(myTestList3, 'chris');
-            await storage.add(myTestList3, 'paul');
+            await storage.add('chris');
+            await storage.add('paul');
 
-            expect(await storage.remove(myTestList3, 'paul')).toEqual(true);
+            expect(await storage.remove('paul')).toEqual(true);
 
-            expect(await storage.get(myTestList3)).toEqual(['chris']);
+            expect(await storage.list()).toEqual(['chris']);
 
-            await storage.remove(myTestList3, 'chris');
+            await storage.remove('chris');
             await storage.quit();
         });
     });
