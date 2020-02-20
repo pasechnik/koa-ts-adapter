@@ -31,7 +31,7 @@ describe('routes/postRoutes-real', () => {
         expect(response1.status).toEqual(201);
         expect(response1.type).toEqual('application/json');
         expect(response1.body).toEqual({
-            games: [game1.name],
+            games: expect.arrayContaining([game1.name]),
         });
 
         const game2 = { name: 'FSX 2020' };
@@ -42,7 +42,7 @@ describe('routes/postRoutes-real', () => {
         expect(response2.status).toEqual(201);
         expect(response2.type).toEqual('application/json');
         expect(response2.body).toEqual({
-            games: [game1.name, game2.name],
+            games: expect.arrayContaining([game1.name, game2.name]),
         });
     });
 });
