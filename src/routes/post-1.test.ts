@@ -4,6 +4,7 @@ import { Server } from 'http';
 import * as request from 'supertest';
 import * as storageRedis from '../storage/redis';
 import DoneCallback = jest.DoneCallback;
+import { Storage } from '../types/interfaces';
 
 let httpServer: Server;
 jest.mock('../storage/redis');
@@ -23,21 +24,29 @@ afterEach((doneCallback: DoneCallback) => {
     doneCallback();
 });
 
-describe('routes/postRoutes', () => {
-    const games = ['World of Warships', 'Battlefield'];
+describe('routes/postRoutes-mocks', () => {
+    const games = ['World of Warships', 'Battlefield 4'];
 
     games.forEach((name: string) => {
         it(`should allow adding a message to the list - ${name}`, async () => {
             const mockGet = jest.fn(() => Promise.resolve([name]));
             // @ts-ignore
-            storageRedis.createStorage = jest.fn(() => {
-                return {
-                    get: mockGet,
-                    add: (): Promise<boolean> => Promise.resolve(false),
-                    remove: (): Promise<boolean> => Promise.resolve(false),
-                    quit: (): Promise<'OK'> => Promise.resolve('OK'),
-                };
-            });
+            storageRedis.createStorage = jest.fn(
+                (): Storage<string> => {
+                    return {
+                        list: mockGet,
+                        clear: (): Promise<number> => Promise.resolve(0),
+                        del: (): Promise<boolean> => Promise.resolve(true),
+                        get: (): Promise<string> => Promise.resolve(''),
+                        key: (): Promise<string> => Promise.resolve(''),
+                        length: (): Promise<number> => Promise.resolve(0),
+                        set: (): Promise<boolean> => Promise.resolve(true),
+                        add: (): Promise<boolean> => Promise.resolve(false),
+                        remove: (): Promise<boolean> => Promise.resolve(false),
+                        quit: (): Promise<'OK'> => Promise.resolve('OK'),
+                    };
+                },
+            );
 
             const response = await request(httpServer)
                 .post('/post')

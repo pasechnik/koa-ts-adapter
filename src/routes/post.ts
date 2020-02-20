@@ -33,7 +33,7 @@ post.post(
 
         const storage = createStorage('post_list');
         await storage.add(message.name);
-        const games = await storage.get();
+        const games: string[] = await storage.list();
         await storage.quit();
 
         // ALL ABOVE THIS IS NEW

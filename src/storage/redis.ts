@@ -8,6 +8,8 @@ import { bindRedisFunctions, clientFunctions } from './redis/lib';
 // const log = debug('app:redisStorage');
 
 // export const createRedisStorage = (): Storage => {
+export type storageFabric<T extends string> = (name: string) => Storage<T>;
+
 export function createStorage<T extends string>(name: string): Storage<T> {
     const client: redis.RedisClient = redis.createClient(config.redis);
 
