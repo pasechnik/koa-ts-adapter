@@ -32,9 +32,9 @@ projectRouter.post(
         const project: Project = ctx.request.body;
         const storage = createStorage<string>('project_list');
         await storage.add(project.name);
-        const games: string[] = await storage.list();
+        // const games: string[] = await storage.list();
         await storage.quit();
-        ctx.io.to('animals').emit('animal', games);
+        ctx.io.to('animals').emit('animal', project);
         // ctx.io.to('animals').emit('animal', `Project "${projectRouter.name}" ist da! `);
 
         // ALL ABOVE THIS IS NEW
